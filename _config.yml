@@ -1,26 +1,26 @@
 # Site settings
 title: Sedjro Salomon HOTEGNI
-url: "http://laobubu.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+url: "http://Salomon2000Sedjro.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 #timezone: Asia/Chongqing
 description: >
-  One or more sentences introducing this blog.
+  This is Sedjro Salomon Hotegni's personal blog.
 
 # Your information
 email: salomon.hotegni@aims.ac.rw
 author: Sedjro Salomon HOTEGNI
 avatar: "https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/gh-pages/photos/Sedjro_portrait.jpg?raw=true"
-profile: One sentence introducing yourself.
+profile: Welcome to my site! I hope you find something interesting here.
 #twitter_username: twitter_username
 #github_username:  github_username
 profile_links:
   Email: "mailto:salomon.hotegni@aims.ac.rw"
   GitHub: "https://github.com/Salomon2000Sedjro.github.io"
-  Linkedin: "https://www.linkedin.com/in/s%C3%A8djro-salomon-hotegni-82a03a202"
+  Linkedin: "https://www.linkedin.com/in/sèdjro-salomon-hotegni-82a03a202"
 
 # Comment Service (Disqus or 多说)
 #  choose one and un-comment the line to active it
-#disqus_shortname: xxx   # get one: https://disqus.com/admin/signup/
+disqus_shortname: sedjrosalomonhotegni   # get one: https://disqus.com/admin/signup/
 #duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
 
 excerpt_separator: <!--more-->
@@ -29,7 +29,7 @@ header:
   links:             # Links on the header. Link to in-site page with a slash as prefix
     About: /about/
     Category: /category/
-    Donate: https://laobubu.net/donate.html
+    #Donate: https://laobubu.net/donate.html
 
 permalink: /archivers/:title
 plugins:
