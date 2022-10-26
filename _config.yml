@@ -1,6 +1,6 @@
 # Site settings
 title: Sedjro Salomon HOTEGNI
-url: "http://Salomon2000Sedjro.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+url: "http://salomonhotegni.github.io" #"http://Salomon2000Sedjro.github.io"     the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 #timezone: Asia/Chongqing
 description: >
