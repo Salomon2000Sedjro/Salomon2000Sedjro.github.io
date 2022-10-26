@@ -263,3 +263,10 @@ one-hour observations.
 But this system can sometimes omit some Critical Health Episodes. A
 direct future work can therefore focus on strengthening more the
 system’s ability to identify CHEs.
+
+## REFERENCES
+[1] Hotegni, S.S. and Fokoué, E., 2022. Efficient Novelty Detection
+Methods for Early Warning of Potential Fatal Diseases.
+arXiv preprint arXiv:2208.04732.
+
+[2] https://github.com/Salomon2000Sedjro/MasterThesisAIMS
