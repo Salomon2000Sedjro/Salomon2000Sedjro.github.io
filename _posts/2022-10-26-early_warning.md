@@ -85,7 +85,7 @@ from the feature importance ranking provided by the proposed predictive
 model, the Mutual Information Gain approach was also used for the
 feature selection process.
 
-**Mutual Information Gain:**
+### Mutual Information Gain:
 
 Mutual Information Gain (MIG), as one of the most efficient feature
 selection methods, is a measure of the "mutual dependency" of two
@@ -106,14 +106,14 @@ It is strongly related to the notion of entropy. This is due to the fact that
 it may also be defined as the reduction of uncertainty of a random variable
 if another is known. The definition of I(xj; y) can be rewritten as:
 
-I(xj; y) = H(xj) − H(xj|y).
+![Entropy](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/entropy.PNG?raw=true)
 
-Given a set of features XS = {x1, ..., xn} and a single feature y, the Joint
+Given a set of features $X_S = {x_1, ..., x_n}$ and a single feature y, the Joint
 Mutual Information between them is given by
 
 ![MIG_formula_2](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_2.PNG?raw=true)
 
-**A process for selecting a subset of important features**
+### A process for selecting a subset of important features
 
 Let |S| = k. be the number of features to be selected.
 The feature selection process should identify a subset of features
@@ -123,7 +123,7 @@ size k
 
 ![MIG_formula_3](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_3.PNG?raw=true)
 
-**Greedy forward step-wise selection**
+### Greedy forward step-wise selection
 
 According to their Mutual Information with respect to the target y,
 the features are ranked. The top feature is then selected.
@@ -137,133 +137,129 @@ So,
 
 ![Greedy](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/08a90ebf146343d9aa344e4e320e7a61650576c0/photos/Early%20Warning/Greedy.PNG?raw=true)
 
+## Predictive model
+The Light Gradient Boosting Machine (LightGBM) is the predictive
+model used in the proposed early detection of AHE and TE system.
+LightGBM is a sophisticated Gradient-Boosted Decision Tree (GBDT)
+method that is designed to identify the optimal feature splitting points
+while also reducing the quantity of samples and features.
+Gradient-based One Side Sampling (GOSS) and leaf-wise growth are
+its two key benefits.
 
-## RASSEL Algorithm
+![model](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/abb11240eebbc842bf3423902e94dffc6bc82261/photos/Early%20Warning/model.png?raw=true)
 
-![algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/61dbeec442f92d0692c87fc34a2f8bcb22ea7217/photos/algo1.PNG?raw=true)
+### Gradient-based One Side Sampling (GOSS)
+Key insight: Data instances with stronger gradients play larger roles in
+information gain computation.
+So, it preserves data instances with big gradients and randomly picks data
+with small gradients when determining the optimal split. To do so:
 
-One of the most crucial ingredients in the above proposed algorithm is the dimension q of the subspace, because its value has a strong bearing on an important aspect of  the correlation among the base learners.
-The book $Random Forests, Machine Learning, L. Breiman, 45 (2001), 532. recommends reasonable values;
+First, GOSS ranks the training instances based on the absolute values
+of their gradients.
 
-### If p<<n
-For classification, <img src="https://latex.codecogs.com/svg.image?q=[\sqrt{p}]" /> and for regression, <img src="https://latex.codecogs.com/svg.image?q=[p/3]" />
-### If p>>n
-For classification, <img src="https://latex.codecogs.com/svg.image?q=min([n/5],[\sqrt{p}])" /> and for regression, <img src="https://latex.codecogs.com/svg.image?q=min([n/5],[p/3])" />
+Then, it selects the top a% of the total instances with the largest
+gradient. (a subset A is thus obtained)
 
-### Variance of the ensemble prediction function
-<img src="https://latex.codecogs.com/svg.image?\begin{align*}\mathbb{V}[\widehat{f}^{(L)}(.)]&space;&=&space;\mathbb{V}\biggl[\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(.)\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[\sum_{l=1}^{L}\mathbb{V}[\widehat{g}^{(l)}(.)]&plus;\sum_{l=1}^{L}\sum_{l'\ne&space;l}^{L}cov\bigg(\widehat{g}^{(l)}(.),\widehat{g}^{(l')}(.)\bigg)\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[\sum_{l=1}^{L}\sigma^2&plus;\sum_{l=1}^{L}\sum_{l'\ne&space;l}^{L}\rho\sigma^2\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[L\sigma^2&plus;L(L-1)\rho\sigma^2\biggr]\\\mathbb{V}[\widehat{f}^{(L)}(.)]&space;&space;&=&space;\dfrac{\sigma^2}{L}&plus;\dfrac{(L-1)}{L}\rho\sigma^2\\where\&space;\sigma^2&space;=&space;\mathbb{V}[\widehat{g}^{(L)}(.)]\&space;&and\&space;\rho\sigma^2&space;=&space;cov\bigg(\widehat{g}^{(l)}(.),\widehat{g}^{(l')}(.)\bigg)\&space;for\&space;l\ne&space;l'\end{align*}" />
+Random sampling b% of instances from the remaining (1 − a)%.
+(another subset B is obtained)
 
-## DATA-DRIVEN WEIGHTING SCHEME 			
-### In regression
-The proposed weighting scheme proposed in the RASSEL algorithm is generated by calculating the correlation <img src="https://latex.codecogs.com/svg.image?r_j" /> between each predictor <img src="https://latex.codecogs.com/svg.image?x_j" /> and the response variable y.
-### In classification
-We consider using the corresponding F statistic 
+The gradients of the b% of instances are multiplied by $(1 − a)/b$ , which amplifies the contribution of samples having small gradients.
 
-<img src="https://latex.codecogs.com/svg.image?F_j&space;=&space;\dfrac{(n-2)r_j^2}{r_j^2}" />
+Finally, the instances are split based on the projected variance gain $V^j(d)$
+over the subset of selected instances:
+
+![VarianceGain](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/variance_gain.PNG?raw=true)
+
+For each feature j, GOSS selects $d_j^∗ = argmax_dV^j(d)$.
+The data is then split based on the feature $j^∗ = argmax_jV^j(d_j^∗)$ at the point $d_j^∗$.
+
+### Leaf-wise growth
+In LightGBM, the leaf-wise tree growth chooses the leaf that
+minimizes loss the most and splits only that leaf, ignoring the rest of the
+leaves at the same level. As a result, the tree becomes asymmetrical,
+and additional splitting may occur only on one side of the tree.
+
+![LeafWise](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/leaf.jpg?raw=true)
+
+There are another two reasons why LightGBM is very fast:
+Histogram-based splitting and Exclusive Feature Bundling (EFB).
+
+### Histogram-based splitting
+It separates the data into a given number of bins of uniform length,
+and then iterates across these bins to determine the best split point.
+So, the complexity of the algorithm goes from $O(data × features)$ to
+$O(bins × features)$, with $bins << data$.
+
+### Exclusive Feature Bundling
+This technique identifies and combines the mutually exclusive
+features (features that never take zero values simultaneously) into a single
+feature to decrease the complexity to $O(bins × bundle)$, with
+$bundle << features$.
     
-## EXTRACTING IMPORTANT FEATURES
-### Algorithm for regression
+## Evaluation Metrics
+In this study, a model is considered to be a highly efficient algorithm for
+the early prediction of Acute Hypotensive Episodes and Tachycardia
+Episodes, if it presents a high Event F1-score (EF1-score) with a large
+average Anticipation Time (aveAT), and a low average False Alarms.
 
-![first_algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/9d2e5dc069d12c3109216d26240fe694be5fb5a6/photos/algo2.PNG?raw=true)
+**Event F1-score (EF1-score):**
+It assesses the ability of the model to recognize the main events in
+time while avoiding false alarms as much as possible..
 
-### Algorithm for classification
+**Average Anticipation Time (aveAT):**
+It is the average interval of time left in advance by the model to
+correctly predict a Positive Case.
 
-![second_algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/9d2e5dc069d12c3109216d26240fe694be5fb5a6/photos/algo3.PNG?raw=true)
+**Average False Alarms (aveFA):**
+The average number of false alarms launched by the system per
+subsequence
 
-## IMPLEMENTATION
-### "Algorithm 2" in Python
+## Results and Discussion
+In order to conduct a comparative study on LightGBM and other predictive
+models, the Extreme Gradient Boosting (XBoost), Naive Bayes
+(NB), and Support Vector Classification (SVC) have also been used.
 
-```python
+### AHE early prediction
+The MIG-LightGBM approach can capture up to 70% of the Acute
+Hypotensive Events at more than 1 hour 47 minutes before their
+appearance while maintaining the highest EF1-score of 50%, and the
+lowest aveFA of 2.1 compared to other methods.
 
-def EIV_regression(df, ypos):
-    n, p = df.shape[0], df.shape[1]-1
-    # Computing q 
-    if df.shape[0] >= df.shape[1]:
-        q = int(math.floor(p/3))
-    else:
-        q = int(np.min([math.floor(n/5), math.floor(p/3)]))
-    # Generating the weighting schemes    
-    r = []
-    for j in range(p+1):
-        if j != ypos-1:
-            corr, _ = pearsonr(df.iloc[:,ypos-1], df.iloc[:,j])
-            r.append(corr)
-    vect_pi = [(i**2)/(la.norm(r)**2) for i in r]
-    # Drawing q features  
-    basis = []
-    for i in range(q):
-        basis.append(np.random.choice(p, 1, replace=False, p=vect_pi))
-    return basis, vect_pi
+![AHE](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table1.PNG?raw=true)
 
-```
-### A representative simulation results for regression analysis on real dataset: "gifted.csv".
-```python
-df1 = pd.read_csv("gifted.csv")
-plt.xlabel("Important variables extracted for regression")
-plt.ylabel("Prior Feature Importance")
+### TE early prediction
+MIG-LightGBM can capture up to 85% of the Tachycardia Events at more
+than 1 hour 53 minutes before their appearance while maintaining the
+highest and remarkable EF1-score of 70%, and the lowest aveFA of 4.3
 
-impR = EIV_regression(df1, 1)
-plt.bar(range(1,df1.shape[1]), impR[1]);
-label=["fatheriq","motheriq","speak","count","read","edutv","cartoons"]
-plt.xticks(range(1,df1.shape[1]),label)
-```
+![TE](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table2.PNG?raw=true)
 
-![regression](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/56667934ab8fc4278c2b4777e152818057b6ae83/photos/regression.png)
+### Layered Learning(LL) - VS - MIG-LightGBM
+The MIG-LightGBM approach completely dominates the LL method with
+the main efficiency measurement metrics (EF1-score, aveAT, and aveFA).
+It notably exceeds LL by about 20% on both EF1-score and RP for the
+AHE prediction and by 50% for the TE prediction.
 
-### "Algorithm 3" in Python
-### Extracting Important variables for classification
+![LL_AHE](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table3.PNG?raw=true)
 
-```python
-def EIV_classification(df, ypos):
-    n, p = df.shape[0], df.shape[1]-1
-    # Computing q
-    if df.shape[0] >= df.shape[1]:
-        q = int(math.floor(np.sqrt(p)))
-    else:
-        q = int(np.min([math.floor(n/5), math.floor(np.sqrt(p))]))  
-    # Generating the weighting schemes
-    F = []
-    for j in range(p+1):
-        if j != ypos-1:
-            y = df.iloc[:,ypos-1].values
-            x = df.iloc[:,j].values
-            grps = pd.unique(y)
-            d_data = {grp:x[y == grp] for grp in grps}
-            f, pval = stats.f_oneway(list(d_data.values())[0],list(d_data.values())[1])
-            F.append(f)
-    vect_pi = [(i)/(np.sum(F)) for i in F]
-    # Drawing q features
-    basis = []
-    for i in range(q):
-        basis.append(np.random.choice(p, 1, replace=False, p=vect_pi))
-    return basis, vect_pi     
+![LL_TE](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table4.PNG?raw=true)
 
-```
-### A representative simulation results for classification analysis on real dataset: "prostate-cancer-1.csv".
-```python
-df = pd.read_csv("prostate-cancer-1.csv")
-plt.xlabel("Important variables extracted for classification")
-plt.ylabel("Prior Feature Importance")
+The proposed method, MIG-LightGBM, is therefore a highly efficient
+approach for the early prediction of AHE and TE. Its greatest strength is
+its ability to identify numerous Critical Health Episodes earlier while
+avoiding false alarms as much as possible, and more than existing
+methods. It gives ample time for vital actions to be taken after an
+impending alarm, and its warnings are highly reliable.
 
-imp = EIV_classification(df, 1)
-plt.bar(range(1,df.shape[1]), imp[1]);
-```
 
-![classification](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/36c05e4752ace1012811aa73118f9b01414abd32/photos/classification.png)
-
-## COMPUTATIONAL DEMONSTRATION
-
-![comparison](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/bd1e63fb11d34d0eb8850d6d9def93ea564ecffe/photos/compare.png)
-
-## CONCLUSION
-
-This developed adaptive RASSEL algorithm outperforms many classifier
-ensembles. It reaches the highest accuracy when the number of features
-is large as well as the number of instances. In addition, it performs good
-when there are redundant features on the dataset But it has limitations !
-For instance, this method can not deal with dataset that has categorical
-features. Instead it necessities to encode these features numerically. In
-addition, the algorithm fails to select the optimal feature subsets, when
-the number of features are very small.
-To improve RASSEL, we can generalize it in such a way that all base
-learners can be adapted easily
+## Conclusion
+This study focused on building a highly effective early warning system for
+the Critical Health Episodes (CHEs) such as Acute Hypotensive and
+Tachycardia. This system is able to predict them earlier with great
+efficacy, while avoiding false alarms as much as possible. In practical
+situations, it can be applied on patients to make a reliable early prediction
+on Critical Health Episodes, having knowledge of at least their latest
+one-hour observations.
+But this system can sometimes omit some Critical Health Episodes. A
+direct future work can therefore focus on strengthening more the
+system’s ability to identify CHEs.
