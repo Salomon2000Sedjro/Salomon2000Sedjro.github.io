@@ -6,7 +6,7 @@ permalink: /posts/early_warning
 image: "https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true"
 ---
 
-![subspace](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
+![EarlyWarning](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
 
 ## Introduction
 An early warning approach in healthcare is an algorithm that provides
@@ -18,15 +18,13 @@ Acute Hypotensive Episodes (AHE) and Tachycardia Episodes (TE)
 are two of the most dangerous Critical Health Episodes in the Intensive
 Care Units.
 
-Acute Hypotensive Episodes (AHE): Any interval of 30 minutes
+**Acute Hypotensive Episodes (AHE):** Any interval of 30 minutes
 during which at least 90% of the Mean Arterial blood Pressure
 (MAP) values are below 60 mmHg (millimeters of mercury)
 
-Tachycardia Episodes (TE): Any interval of 30 minutes during
+**Tachycardia Episodes (TE):** Any interval of 30 minutes during
 which at least 90% of Heart Rate (HR) measurements are over 100
 bpm (beats per minute)
-
-![algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/48adef7a1e6114a7579d31b8afd48b37c23c333f/photos/blog1_rassel2.png?raw=true)
 
 ## Proposed Method
 In general, existing warning systems for AHE and TE early prediction
@@ -37,39 +35,108 @@ feature selection process with Mutual Information Gain (MIG) and an
 episode classification approach with the predictive model Light Gradient
 Boosting Machine (LightGBM)
 
-## WEIGHTING SCHEMES
-### Uniform scheme ?
-In most typical random subspace learning algorithms, the features are selected according to an equally
-likely scheme. One may therefore wonder if it is possible to choose the candidate features for with some
-predictive benefits.
-### Data-driven weighting schemes !
-The proposed method of data-driven weighting schemes that I'm going to present, explores a variety of
-weighting schemes for choosing the features, based on the statistical measures of relationship between
-the response variable and each explanatory variable.
+![EarlyWarningSystem](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/92e4a0ac4970008ae45fc2d0a50d92ee822cef3b/photos/Early%20Warning/EW_system.PNG?raw=true)
 
-## How does RASSEL work ?
-Like random forest and all other random subspace learning methods, RASSEL consists of building an ensemble of $L$ base learners noted here:
+## Data compilation
+The data used in this research is a subset of the Multi-parameter
+Intelligent Monitoring for Critical Care (MIMIC) II database [1]. It
+contains minute-by-minute time series of Heart Rate (HR), Systolic
+Blood Pressure (SBP), Diastolic Blood Pressure (DBP), and Mean
+Arterial blood Pressure (MAP) arranged into records, each of which
+corresponds to an adult patient’s ICU stay.
+The dataset was traversed by sub-sequences, each one being subdivided
+into three windows:
 
-<img src="https://latex.codecogs.com/svg.image?\mathcal{G}_{RASSEL}&space;=&space;\{\widehat{g}^{(1)},...,\widehat{g}^{(l)},...,\widehat{g}^{(L)}\}&space;" />
+**Target Window:** The period during which a Critical Health Event
+can occur.
 
-and forming the ensemble prediction function as:
+**Observation Window:** Observation period containing data to be
+used to predict what will happen in the Target Window.
 
-<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(.)&space;=&space;\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(.)" />
+**Warning Window:** The gap between the Observation Window and
+the Target Window.
 
-## PREDICTION TASK
-### For classification
-In classification, we predict the class membership of
-<img src="https://latex.codecogs.com/svg.image?x^{*}&space;\in&space;\mathcal{X}" />,
-by using the ensemble predicting estimator:
+![TwoSubsequences](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2abc66abbdd44706b6de58126a7929df1c4155f0/photos/Early%20Warning/conseq_subseq.PNG?raw=true)
 
-<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(x^{*})&space;=&space;\underset{y\in\mathcal{Y}}{argmax}\biggl\{\sum_{i=1}^{L}\bigg(\textbf{1}_{(y=\widehat{g}^{(L)}(x^{*}))}\bigg)&space;\biggr\}" />
+## Feature extraction
+Feature extraction, also known as feature engineering, is the process of
+extracting features from raw data using domain expertise. The objective is
+to utilize these extracted features to increase the quality of a machine
+learning model outputs when compared to simply giving the raw data to
+the machine learning model.
+In this work, the feature extraction process was carried out according to
+three techniques.
 
-### For regression
-Given
-<img src="https://latex.codecogs.com/svg.image?x^{*}&space;\in&space;\mathcal{X}" />,
-we predict its corresponding response using:
+**Knowledge-based features.**
 
-<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(x^{*})&space;=&space;\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(x^{*})" />
+**Statistical features.**
+
+**Cross-correlation features.**
+
+**Wavelet features.**
+
+The total number of features considered for the analysis was 111
+
+## Feature Selection
+Feature selection is an important phase in data cleaning. It not only
+removes the redundant data but also aids in the discovery of the
+most relevant ones, hence improving the model’s performance. Apart
+from the feature importance ranking provided by the proposed predictive
+model, the Mutual Information Gain approach was also used for the
+feature selection process.
+
+**Mutual Information Gain:**
+
+Mutual Information Gain (MIG), as one of the most efficient feature
+selection methods, is a measure of the "mutual dependency" of two
+random variables. MIG creates a quantifiable link between a feature
+and the target. Using MIG as a feature selector has two advantages:
+It is model-neutral, which means it can be applied to a wide range of
+machine learning models; and it is also fast.
+
+Let xj be a feature and y the target variable. The Mutual Information
+Gain for the two discrete random variables xj and y is given by
+
+![MIG_formula](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/012cd345f659d1d5da40c7d51f15105bcc4704f4/photos/Early%20Warning/MIG_formula.PNG?raw=true)
+
+where px and py are the marginal probability and pxy is the joint
+probability.
+
+It is strongly related to the notion of entropy. This is due to the fact that
+it may also be defined as the reduction of uncertainty of a random variable
+if another is known. The definition of I(xj; y) can be rewritten as:
+
+I(xj; y) = H(xj) − H(xj|y).
+
+Given a set of features XS = {x1, ..., xn} and a single feature y, the Joint
+Mutual Information between them is given by
+
+![MIG_formula_2](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_2.PNG?raw=true)
+
+**A process for selecting a subset of important features**
+
+Let |S| = k. be the number of features to be selected.
+The feature selection process should identify a subset of features
+XSˆ = {xi1, ..., xik}, which maximizes the Joint Mutual Information
+I(XS; y)) between the class label y and all possible feature subsets XS of
+size k
+
+![MIG_formula_3](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_3.PNG?raw=true)
+
+**Greedy forward step-wise selection**
+
+According to their Mutual Information with respect to the target y,
+the features are ranked. The top feature is then selected.
+
+Let XSt−1 = {xi1, ..., xit−1} denote the set of features that were
+chosen at step t − 1.
+
+Choose the next feature xit in such a way that the greatest
+improvement in Joint Mutual Information is achieved by using XSt.
+So,
+
+![Greedy](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/08a90ebf146343d9aa344e4e320e7a61650576c0/photos/Early%20Warning/Greedy.PNG?raw=true)
+
 
 ## RASSEL Algorithm
 
