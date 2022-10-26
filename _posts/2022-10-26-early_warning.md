@@ -7,3 +7,196 @@ image: "https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c
 ---
 
 ![subspace](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
+
+## Introduction
+An early warning approach in healthcare is an algorithm that provides
+information about upcoming risks to susceptible people before a Critical
+Health Episode occurs. This enables action to be taken to reduce possible
+harm and, in some situations, prevent it from occurring. Therefore, it is
+of great importance to the reduction of mortality in healthcare.
+Acute Hypotensive Episodes (AHE) and Tachycardia Episodes (TE)
+are two of the most dangerous Critical Health Episodes in the Intensive
+Care Units.
+
+Acute Hypotensive Episodes (AHE): Any interval of 30 minutes
+during which at least 90% of the Mean Arterial blood Pressure
+(MAP) values are below 60 mmHg (millimeters of mercury)
+
+Tachycardia Episodes (TE): Any interval of 30 minutes during
+which at least 90% of Heart Rate (HR) measurements are over 100
+bpm (beats per minute)
+
+![algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/48adef7a1e6114a7579d31b8afd48b37c23c333f/photos/blog1_rassel2.png?raw=true)
+
+## Proposed Method
+In general, existing warning systems for AHE and TE early prediction
+typically have limited performance and high computational costs in
+real-time alerting when dealing with large amounts of data. So, this work
+presents MIG-LightGBM, a highly efficient warning system based on a
+feature selection process with Mutual Information Gain (MIG) and an
+episode classification approach with the predictive model Light Gradient
+Boosting Machine (LightGBM)
+
+## WEIGHTING SCHEMES
+### Uniform scheme ?
+In most typical random subspace learning algorithms, the features are selected according to an equally
+likely scheme. One may therefore wonder if it is possible to choose the candidate features for with some
+predictive benefits.
+### Data-driven weighting schemes !
+The proposed method of data-driven weighting schemes that I'm going to present, explores a variety of
+weighting schemes for choosing the features, based on the statistical measures of relationship between
+the response variable and each explanatory variable.
+
+## How does RASSEL work ?
+Like random forest and all other random subspace learning methods, RASSEL consists of building an ensemble of $L$ base learners noted here:
+
+<img src="https://latex.codecogs.com/svg.image?\mathcal{G}_{RASSEL}&space;=&space;\{\widehat{g}^{(1)},...,\widehat{g}^{(l)},...,\widehat{g}^{(L)}\}&space;" />
+
+and forming the ensemble prediction function as:
+
+<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(.)&space;=&space;\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(.)" />
+
+## PREDICTION TASK
+### For classification
+In classification, we predict the class membership of
+<img src="https://latex.codecogs.com/svg.image?x^{*}&space;\in&space;\mathcal{X}" />,
+by using the ensemble predicting estimator:
+
+<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(x^{*})&space;=&space;\underset{y\in\mathcal{Y}}{argmax}\biggl\{\sum_{i=1}^{L}\bigg(\textbf{1}_{(y=\widehat{g}^{(L)}(x^{*}))}\bigg)&space;\biggr\}" />
+
+### For regression
+Given
+<img src="https://latex.codecogs.com/svg.image?x^{*}&space;\in&space;\mathcal{X}" />,
+we predict its corresponding response using:
+
+<img src="https://latex.codecogs.com/svg.image?\widehat{f}^{(L)}(x^{*})&space;=&space;\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(x^{*})" />
+
+## RASSEL Algorithm
+
+![algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/61dbeec442f92d0692c87fc34a2f8bcb22ea7217/photos/algo1.PNG?raw=true)
+
+One of the most crucial ingredients in the above proposed algorithm is the dimension q of the subspace, because its value has a strong bearing on an important aspect of  the correlation among the base learners.
+The book $Random Forests, Machine Learning, L. Breiman, 45 (2001), 532. recommends reasonable values;
+
+### If p<<n
+For classification, <img src="https://latex.codecogs.com/svg.image?q=[\sqrt{p}]" /> and for regression, <img src="https://latex.codecogs.com/svg.image?q=[p/3]" />
+### If p>>n
+For classification, <img src="https://latex.codecogs.com/svg.image?q=min([n/5],[\sqrt{p}])" /> and for regression, <img src="https://latex.codecogs.com/svg.image?q=min([n/5],[p/3])" />
+
+### Variance of the ensemble prediction function
+<img src="https://latex.codecogs.com/svg.image?\begin{align*}\mathbb{V}[\widehat{f}^{(L)}(.)]&space;&=&space;\mathbb{V}\biggl[\dfrac{1}{L}\sum_{l=1}^{L}\widehat{g}^{(l)}(.)\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[\sum_{l=1}^{L}\mathbb{V}[\widehat{g}^{(l)}(.)]&plus;\sum_{l=1}^{L}\sum_{l'\ne&space;l}^{L}cov\bigg(\widehat{g}^{(l)}(.),\widehat{g}^{(l')}(.)\bigg)\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[\sum_{l=1}^{L}\sigma^2&plus;\sum_{l=1}^{L}\sum_{l'\ne&space;l}^{L}\rho\sigma^2\biggr]\\\&space;&=&space;\dfrac{1}{L^2}\biggl[L\sigma^2&plus;L(L-1)\rho\sigma^2\biggr]\\\mathbb{V}[\widehat{f}^{(L)}(.)]&space;&space;&=&space;\dfrac{\sigma^2}{L}&plus;\dfrac{(L-1)}{L}\rho\sigma^2\\where\&space;\sigma^2&space;=&space;\mathbb{V}[\widehat{g}^{(L)}(.)]\&space;&and\&space;\rho\sigma^2&space;=&space;cov\bigg(\widehat{g}^{(l)}(.),\widehat{g}^{(l')}(.)\bigg)\&space;for\&space;l\ne&space;l'\end{align*}" />
+
+## DATA-DRIVEN WEIGHTING SCHEME 			
+### In regression
+The proposed weighting scheme proposed in the RASSEL algorithm is generated by calculating the correlation <img src="https://latex.codecogs.com/svg.image?r_j" /> between each predictor <img src="https://latex.codecogs.com/svg.image?x_j" /> and the response variable y.
+### In classification
+We consider using the corresponding F statistic 
+
+<img src="https://latex.codecogs.com/svg.image?F_j&space;=&space;\dfrac{(n-2)r_j^2}{r_j^2}" />
+    
+## EXTRACTING IMPORTANT FEATURES
+### Algorithm for regression
+
+![first_algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/9d2e5dc069d12c3109216d26240fe694be5fb5a6/photos/algo2.PNG?raw=true)
+
+### Algorithm for classification
+
+![second_algorithm_layout](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/9d2e5dc069d12c3109216d26240fe694be5fb5a6/photos/algo3.PNG?raw=true)
+
+## IMPLEMENTATION
+### "Algorithm 2" in Python
+
+```python
+
+def EIV_regression(df, ypos):
+    n, p = df.shape[0], df.shape[1]-1
+    # Computing q 
+    if df.shape[0] >= df.shape[1]:
+        q = int(math.floor(p/3))
+    else:
+        q = int(np.min([math.floor(n/5), math.floor(p/3)]))
+    # Generating the weighting schemes    
+    r = []
+    for j in range(p+1):
+        if j != ypos-1:
+            corr, _ = pearsonr(df.iloc[:,ypos-1], df.iloc[:,j])
+            r.append(corr)
+    vect_pi = [(i**2)/(la.norm(r)**2) for i in r]
+    # Drawing q features  
+    basis = []
+    for i in range(q):
+        basis.append(np.random.choice(p, 1, replace=False, p=vect_pi))
+    return basis, vect_pi
+
+```
+### A representative simulation results for regression analysis on real dataset: "gifted.csv".
+```python
+df1 = pd.read_csv("gifted.csv")
+plt.xlabel("Important variables extracted for regression")
+plt.ylabel("Prior Feature Importance")
+
+impR = EIV_regression(df1, 1)
+plt.bar(range(1,df1.shape[1]), impR[1]);
+label=["fatheriq","motheriq","speak","count","read","edutv","cartoons"]
+plt.xticks(range(1,df1.shape[1]),label)
+```
+
+![regression](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/56667934ab8fc4278c2b4777e152818057b6ae83/photos/regression.png)
+
+### "Algorithm 3" in Python
+### Extracting Important variables for classification
+
+```python
+def EIV_classification(df, ypos):
+    n, p = df.shape[0], df.shape[1]-1
+    # Computing q
+    if df.shape[0] >= df.shape[1]:
+        q = int(math.floor(np.sqrt(p)))
+    else:
+        q = int(np.min([math.floor(n/5), math.floor(np.sqrt(p))]))  
+    # Generating the weighting schemes
+    F = []
+    for j in range(p+1):
+        if j != ypos-1:
+            y = df.iloc[:,ypos-1].values
+            x = df.iloc[:,j].values
+            grps = pd.unique(y)
+            d_data = {grp:x[y == grp] for grp in grps}
+            f, pval = stats.f_oneway(list(d_data.values())[0],list(d_data.values())[1])
+            F.append(f)
+    vect_pi = [(i)/(np.sum(F)) for i in F]
+    # Drawing q features
+    basis = []
+    for i in range(q):
+        basis.append(np.random.choice(p, 1, replace=False, p=vect_pi))
+    return basis, vect_pi     
+
+```
+### A representative simulation results for classification analysis on real dataset: "prostate-cancer-1.csv".
+```python
+df = pd.read_csv("prostate-cancer-1.csv")
+plt.xlabel("Important variables extracted for classification")
+plt.ylabel("Prior Feature Importance")
+
+imp = EIV_classification(df, 1)
+plt.bar(range(1,df.shape[1]), imp[1]);
+```
+
+![classification](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/36c05e4752ace1012811aa73118f9b01414abd32/photos/classification.png)
+
+## COMPUTATIONAL DEMONSTRATION
+
+![comparison](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/bd1e63fb11d34d0eb8850d6d9def93ea564ecffe/photos/compare.png)
+
+## CONCLUSION
+
+This developed adaptive RASSEL algorithm outperforms many classifier
+ensembles. It reaches the highest accuracy when the number of features
+is large as well as the number of instances. In addition, it performs good
+when there are redundant features on the dataset But it has limitations !
+For instance, this method can not deal with dataset that has categorical
+features. Instead it necessities to encode these features numerically. In
+addition, the algorithm fails to select the optimal feature subsets, when
+the number of features are very small.
+To improve RASSEL, we can generalize it in such a way that all base
+learners can be adapted easily
