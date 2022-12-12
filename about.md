@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
+![EarlyWarning](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
+
 Welcome to my personal webpage!
 Here, I share my research and also some facts from my everyday life.
 
