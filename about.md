@@ -19,4 +19,4 @@ I am currently a PhD student in **Data Science for Engineering** at **Paderborn 
 Before joining the University of Paderborn, I completed a Master's program in **Mathematical Sciences** with a specialization in **Data Science** at the **African Institute for Mathematical Sciences**, in **Rwanda**. My Master's thesis project is based on **early warning of potential fatal diseases**, and we designed an effective alert system for two of the most dangerous Critical Health Episodes in the Intensive Care Units: **Acute Hypotensive Episodes** and **Tachycardia Episodes**.
 (Find our report here: https://arxiv.org/abs/2208.04732)
 
-Glad you visited my page. **Stay connected !**
+Glad you visited my page. **Stay connected !**💪🤗
