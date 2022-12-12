@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 ![EarlyWarning](
-https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/d9e1d19e48349bfd234b2feb85e885f3d481a746/photos/welcome.jpg?raw=true)
+https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/48cae51dacd19c87a6e196da8902efe6fb56772c/photos/welcome%20(3).jpg?raw=true)
 
 
 Welcome to my personal webpage!
