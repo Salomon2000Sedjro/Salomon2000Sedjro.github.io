@@ -3,10 +3,10 @@ layout: post
 title:  "Efficient Novelty Detection Methods for Early Warning of Potential Fatal Diseases"
 categories: Machine_Learning_Algorithms
 permalink: /posts/early_warning
-image: "https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true"
+image: "https://github.com/salomonhotegni/salomonhotegni.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true"
 ---
 
-![EarlyWarning](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
+![EarlyWarning](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/6c77cd7675370607b4604fa225feaf0d4cdb6bcc/photos/Early%20Warning/early_warning_head_1.png?raw=true)
 
 ## Introduction
 An early warning approach in healthcare is an algorithm that provides
@@ -35,7 +35,7 @@ feature selection process with Mutual Information Gain (MIG) and an
 episode classification approach with the predictive model Light Gradient
 Boosting Machine (LightGBM)
 
-![EarlyWarningSystem](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/92e4a0ac4970008ae45fc2d0a50d92ee822cef3b/photos/Early%20Warning/EW_system.PNG?raw=true)
+![EarlyWarningSystem](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/92e4a0ac4970008ae45fc2d0a50d92ee822cef3b/photos/Early%20Warning/EW_system.PNG?raw=true)
 
 ## Data compilation
 The data used in this research is a subset of the Multi-parameter
@@ -56,7 +56,7 @@ used to predict what will happen in the Target Window.
 **Warning Window:** The gap between the Observation Window and
 the Target Window.
 
-![TwoSubsequences](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2abc66abbdd44706b6de58126a7929df1c4155f0/photos/Early%20Warning/conseq_subseq.PNG?raw=true)
+![TwoSubsequences](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2abc66abbdd44706b6de58126a7929df1c4155f0/photos/Early%20Warning/conseq_subseq.PNG?raw=true)
 
 ## Feature extraction
 Feature extraction, also known as feature engineering, is the process of
@@ -97,7 +97,7 @@ machine learning models; and it is also fast.
 Let xj be a feature and y the target variable. The Mutual Information
 Gain for the two discrete random variables xj and y is given by
 
-![MIG_formula](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/012cd345f659d1d5da40c7d51f15105bcc4704f4/photos/Early%20Warning/MIG_formula.PNG?raw=true)
+![MIG_formula](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/012cd345f659d1d5da40c7d51f15105bcc4704f4/photos/Early%20Warning/MIG_formula.PNG?raw=true)
 
 where px and py are the marginal probability and pxy is the joint
 probability.
@@ -106,12 +106,12 @@ It is strongly related to the notion of entropy. This is due to the fact that
 it may also be defined as the reduction of uncertainty of a random variable
 if another is known. The definition of I(xj; y) can be rewritten as:
 
-![Entropy](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/entropy.PNG?raw=true)
+![Entropy](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/entropy.PNG?raw=true)
 
 Given a set of features $X_S = {x_1, ..., x_n}$ and a single feature y, the Joint
 Mutual Information between them is given by
 
-![MIG_formula_2](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_2.PNG?raw=true)
+![MIG_formula_2](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_2.PNG?raw=true)
 
 ### A process for selecting a subset of important features
 
@@ -121,7 +121,7 @@ XSˆ = {xi1, ..., xik}, which maximizes the Joint Mutual Information
 I(XS; y)) between the class label y and all possible feature subsets XS of
 size k
 
-![MIG_formula_3](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_3.PNG?raw=true)
+![MIG_formula_3](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/d874b3363eacb8c424dcef1c3e6bd87b67747ff3/photos/Early%20Warning/MIG_formula_3.PNG?raw=true)
 
 ### Greedy forward step-wise selection
 
@@ -135,7 +135,7 @@ Choose the next feature xit in such a way that the greatest
 improvement in Joint Mutual Information is achieved by using XSt.
 So,
 
-![Greedy](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/08a90ebf146343d9aa344e4e320e7a61650576c0/photos/Early%20Warning/Greedy.PNG?raw=true)
+![Greedy](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/08a90ebf146343d9aa344e4e320e7a61650576c0/photos/Early%20Warning/Greedy.PNG?raw=true)
 
 ## Predictive model
 The Light Gradient Boosting Machine (LightGBM) is the predictive
@@ -146,7 +146,7 @@ while also reducing the quantity of samples and features.
 Gradient-based One Side Sampling (GOSS) and leaf-wise growth are
 its two key benefits.
 
-![model](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/abb11240eebbc842bf3423902e94dffc6bc82261/photos/Early%20Warning/model.png?raw=true)
+![model](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/abb11240eebbc842bf3423902e94dffc6bc82261/photos/Early%20Warning/model.png?raw=true)
 
 ### Gradient-based One Side Sampling (GOSS)
 Key insight: Data instances with stronger gradients play larger roles in
@@ -168,7 +168,7 @@ The gradients of the b% of instances are multiplied by $(1 − a)/b$ , which amp
 Finally, the instances are split based on the projected variance gain $V^j(d)$
 over the subset of selected instances:
 
-![VarianceGain](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/variance_gain.PNG?raw=true)
+![VarianceGain](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/variance_gain.PNG?raw=true)
 
 For each feature j, GOSS selects $d_j^∗ = argmax_dV^j(d)$.
 The data is then split based on the feature $j^∗ = argmax_jV^j(d_j^∗)$ at the point $d_j^∗$.
@@ -179,7 +179,7 @@ minimizes loss the most and splits only that leaf, ignoring the rest of the
 leaves at the same level. As a result, the tree becomes asymmetrical,
 and additional splitting may occur only on one side of the tree.
 
-![LeafWise](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/leaf.jpg?raw=true)
+![LeafWise](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/leaf.jpg?raw=true)
 
 There are another two reasons why LightGBM is very fast:
 Histogram-based splitting and Exclusive Feature Bundling (EFB).
@@ -225,14 +225,14 @@ Hypotensive Events at more than 1 hour 47 minutes before their
 appearance while maintaining the highest EF1-score of 50%, and the
 lowest aveFA of 2.1 compared to other methods.
 
-![AHE](https://github.com/Salomon2000Sedjro/Salomon2000Sedjro.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table1.PNG?raw=true)
+![AHE](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table1.PNG?raw=true)
 
 ### TE early prediction
 MIG-LightGBM can capture up to 85% of the Tachycardia Events at more
 than 1 hour 53 minutes before their appearance while maintaining the
 highest and remarkable EF1-score of 70%, and the lowest aveFA of 4.3
 
-![TE](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table2.PNG?raw=true)
+![TE](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table2.PNG?raw=true)
 
 ### Layered Learning(LL) - VS - MIG-LightGBM
 The MIG-LightGBM approach completely dominates the LL method with
@@ -240,9 +240,9 @@ the main efficiency measurement metrics (EF1-score, aveAT, and aveFA).
 It notably exceeds LL by about 20% on both EF1-score and RP for the
 AHE prediction and by 50% for the TE prediction.
 
-![LL_AHE](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table3.PNG?raw=true)
+![LL_AHE](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table3.PNG?raw=true)
 
-![LL_TE](https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table4.PNG?raw=true)
+![LL_TE](https://github.com/salomonhotegni/salomonhotegni.github.io/blob/2035de6732de63d65b4408968bfadb49b0666caf/photos/Early%20Warning/table4.PNG?raw=true)
 
 The proposed method, MIG-LightGBM, is therefore a highly efficient
 approach for the early prediction of AHE and TE. Its greatest strength is
@@ -269,4 +269,4 @@ system’s ability to identify CHEs.
 Methods for Early Warning of Potential Fatal Diseases.
 arXiv preprint arXiv:2208.04732.
 
-[2] https://github.com/sedjro-salomon-hotegni/MasterThesisAIMS
+[2] https://github.com/salomonhotegni/MasterThesisAIMS
