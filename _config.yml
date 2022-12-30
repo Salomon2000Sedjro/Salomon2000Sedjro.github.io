@@ -1,6 +1,6 @@
 # Site settings
 title: Sedjro Salomon HOTEGNI
-url: "http://shsalomon.github.io" #"http://shsalomon.github.io"     the protocol and hostname of your site, eg. `http://laobubu.github.io`
+url: "http://salomonhotegni.github.io" #"http://shsalomon.github.io"     the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 #timezone: Asia/Chongqing
 description: >
@@ -9,16 +9,16 @@ description: >
 # Your information
 email: salomon.hotegni@aims.ac.rw
 author: Sedjro Salomon HOTEGNI
-#avatar: "https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/gh-pages/photos/Sedjro_profile.PNG?raw=true"
-#avatar: "https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/gh-pages/photos/profile.png?raw=true"
-avatar:  "https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/57eafb8e72130c081826085e1918fc3b6ec53a03/photos/profile.png?raw=true"
-#"https://github.com/sedjro-salomon-hotegni/shsalomon.github.io/blob/acccd3296a23ed056d6df7eca7a35ee8fc7a7571/photos/profile.png"
+#avatar: "https://github.com/salomonhotegni/salomonhotegni.github.io/blob/gh-pages/photos/Sedjro_profile.PNG?raw=true"
+#avatar: "https://github.com/salomonhotegni/salomonhotegni.github.io/blob/gh-pages/photos/profile.png?raw=true"
+avatar:  "https://github.com/salomonhotegni/salomonhotegni.github.io/blob/57eafb8e72130c081826085e1918fc3b6ec53a03/photos/profile.png?raw=true"
+#"https://github.com/salomonhotegni/salomonhotegni.github.io/blob/acccd3296a23ed056d6df7eca7a35ee8fc7a7571/photos/profile.png"
 profile: Scientific Researcher In Machine Learning
 #twitter_username: twitter_username
 #github_username:  github_username
 profile_links:
   Email: "mailto:salomon.hotegni@aims.ac.rw"
-  GitHub: "https://github.com/sedjro-salomon-hotegni"
+  GitHub: "https://github.com/salomonhotegni"
   Linkedin: "https://www.linkedin.com/in/sèdjro-salomon-hotegni-82a03a202"
 
 # Comment Service (Disqus or 多说)
