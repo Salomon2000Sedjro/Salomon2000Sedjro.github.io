@@ -4,3 +4,6 @@
 *.js linguist-detectable=false
 *.html linguist-detectable=false  
 *.xml linguist-detectable=false 
+
+app/* linguist-documentation=false
+app/* linguist-vendored
